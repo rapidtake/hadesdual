@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>⚡ Best Minecraft SMP - Loading</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap');
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* GERÇEKÇİ MINECRAFT ARKA PLAN - RESMİ EKLENDİ */
+        .background {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: url('https://i.ibb.co/N2fk0Rq1/header-background-new.avif');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: brightness(0.7) contrast(1.2) saturate(1.3);
+            z-index: -1;
+            animation: slowZoom 120s infinite alternate;
+        }
+
+        @keyframes slowZoom {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+        .overlay {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(2px);
+        }
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .smp-title {
+            font-size: 28px;
+            color: #fff;
+            text-shadow: 0 0 20px #00ffff, 0 0 40px #0088ff;
+            margin-bottom: 30px;
+            letter-spacing: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-family: 'Press Start 2P', cursive;
+            animation: titleGlow 2s infinite;
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 0 0 20px #00ffff, 0 0 40px #0088ff; }
+            50% { text-shadow: 0 0 30px #ff00ff, 0 0 60px #8800ff; }
+            100% { text-shadow: 0 0 20px #00ffff, 0 0 40px #0088ff; }
+        }
+
+        .smp-subtitle {
+            color: rgba(255,255,255,0.8);
+            font-size: 14px;
+            margin-bottom: 50px;
+            letter-spacing: 4px;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+
+        .progress-container {
+            width: 100%;
+            margin: 40px 0;
+        }
+
+        .progress-border {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.2);
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 30px rgba(0,255,255,0.3);
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #00ffff, #0088ff, #ff00ff);
+            background-size: 200% 100%;
+            animation: gradientMove 2s linear infinite;
+            transition: width 0.1s linear;
+            border-radius: 10px;
+            box-shadow: 0 0 20px #00ffff;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
+
+        .percent {
+            color: #00ffff;
+            font-size: 36px;
+            margin-top: 20px;
+            text-shadow: 0 0 20px #00ffff;
+            font-weight: 600;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .status-text {
+            color: white;
+            margin-top: 40px;
+            font-size: 16px;
+            text-shadow: 0 0 10px rgba(0,255,255,0.5);
+            letter-spacing: 2px;
+            font-weight: 400;
+            background: rgba(0,0,0,0.3);
+            padding: 15px 30px;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1);
+            display: inline-block;
+        }
+
+        .tip-text {
+            color: rgba(255,255,255,0.7);
+            margin-top: 30px;
+            font-size: 12px;
+            text-shadow: 0 0 10px black;
+            background: rgba(0,0,0,0.2);
+            padding: 12px 25px;
+            border-radius: 50px;
+            backdrop-filter: blur(3px);
+            border: 1px solid rgba(255,255,255,0.05);
+            max-width: 600px;
+            line-height: 1.8;
+        }
+
+        .server-stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 40px;
+            color: rgba(255,255,255,0.6);
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .stat-value {
+            color: #00ffff;
+            font-size: 14px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background"></div>
+    <div class="overlay">
+        <div class="container">
+            <div class="smp-title">MINECRAFT SMP SERVER</div>
+            <div class="smp-subtitle">MODERN MINECRAFT NETWORK</div>
+            
+            <div class="progress-container">
+                <div class="progress-border">
+                    <div class="progress-fill" id="bar"></div>
+                </div>
+                <div class="percent" id="pct">0%</div>
+            </div>
+            
+            <div class="status-text" id="status">LOADING...</div>
+            <div class="tip-text" id="tip">Connecting to minecraft network...</div>
+
+            <div class="server-stats">
+                <div class="stat-item">
+                    <span>ONLINE PLAYERS</span>
+                    <span class="stat-value" id="players">2,547</span>
+                </div>
+                <div class="stat-item">
+                    <span>UPTIME</span>
+                    <span class="stat-value" id="uptime">99.9%</span>
+                </div>
+                <div class="stat-item">
+                    <span>PING</span>
+                    <span class="stat-value" id="ping">12ms</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const translations = {
+            tr: {
+                loading: [
+                    "⚡ SMP SUNUCUSUNA BAĞLANIYOR...",
+                    "🌍 MODERN DÜNYA YÜKLENİYOR...",
+                    "🎮 GERÇEKÇİ DOKULAR İŞLENİYOR...",
+                    "🚀 SON DOKUNUŞLAR YAPILIYOR..."
+                ],
+                tips: [
+                    "İpucu: Minecraft SMP'de özel eşyalar seni bekliyor! ⚔️",
+                    "İpucu: Günlük ödülleri almayı unutma! 🎁",
+                    "İpucu: Discord sunucumuza katıl! 💬",
+                    "İpucu: VIP rank'ler sana özel avantajlar sunar! 👑"
+                ],
+                ready: "⚡ MINECRAFT SMP DÜNYASINA HOŞ GELDİN! ⚡"
+            },
+            en: {
+                loading: [
+                    "⚡ CONNECTING TO MINERAC SMP...",
+                    "🌍 LOADING MODERN WORLD...",
+                    "🎮 PROCESSING REALISTIC TEXTURES...",
+                    "🚀 FINAL TOUCHES IN PROGRESS..."
+                ],
+                tips: [
+                    "Tip: Minecraft SMP has exclusive items waiting for you! ⚔️",
+                    "Tip: Don't forget to claim daily rewards! 🎁",
+                    "Tip: Join our Discord community! 💬",
+                    "Tip: VIP ranks give you special advantages! 👑"
+                ],
+                ready: "⚡ WELCOME TO MINECRAFT SMP! ⚡"
+            }
+        };
+
+        const userLang = navigator.language.startsWith('tr') ? 'tr' : 'en';
+        const t = translations[userLang];
+
+        const bar = document.getElementById('bar');
+        const statusText = document.getElementById('status');
+        const tipText = document.getElementById('tip');
+        const pctText = document.getElementById('pct');
+
+        let progress = 0;
+        const totalSteps = 90;
+        const intervalTime = 1000;
+
+        statusText.innerText = t.loading[0];
+        tipText.innerText = t.tips[0];
+
+        function updateStats() {
+            const players = document.getElementById('players');
+            const uptime = document.getElementById('uptime');
+            const ping = document.getElementById('ping');
+            
+            if (players) {
+                const playerCount = Math.floor(2000 + Math.random() * 1000);
+                players.innerText = playerCount.toLocaleString();
+            }
+            if (uptime) uptime.innerText = (99.5 + Math.random() * 0.5).toFixed(1) + '%';
+            if (ping) ping.innerText = Math.floor(5 + Math.random() * 20) + 'ms';
+        }
+
+        const timer = setInterval(() => {
+            progress += 1;
+            const percent = Math.floor((progress / totalSteps) * 100);
+            
+            if (progress >= totalSteps) {
+                clearInterval(timer);
+                statusText.innerText = t.ready;
+                bar.style.width = "100%";
+                pctText.innerText = "100%";
+                return;
+            }
+
+            bar.style.width = percent + "%";
+            pctText.innerText = percent + "%";
+
+            const stage = Math.floor((percent / 100) * t.loading.length);
+            if (stage < t.loading.length) {
+                statusText.innerText = t.loading[stage];
+                tipText.innerText = t.tips[stage];
+            }
+
+            updateStats();
+
+        }, intervalTime);
+    </script>
+</body>
+</html>

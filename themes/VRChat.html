@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>🌙 VRChat Chill Lounge - Loading</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* VRCHAT ARKA PLAN */
+        .background {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: url('https://i.ibb.co/Mk9fnTPC/vrchat-sombies-hangout.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: brightness(0.8) contrast(1.1);
+            z-index: -1;
+            animation: slowDrift 180s infinite alternate;
+        }
+
+        @keyframes slowDrift {
+            from { transform: scale(1); }
+            to { transform: scale(1.08); }
+        }
+
+        .overlay {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(20,20,30,0.8) 100%);
+            backdrop-filter: blur(4px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        /* ANA BAŞLIK */
+        .chill-title {
+            font-size: 72px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff, #e0e0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 50px rgba(180,160,255,0.4);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            animation: titleFloat 4s infinite;
+        }
+
+        .chill-subtitle {
+            font-size: 16px;
+            font-weight: 400;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 60px;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+        }
+
+        @keyframes titleFloat {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+
+        /* PROGRESS BAR */
+        .progress-wrapper {
+            margin: 30px 0 40px;
+        }
+
+        .progress-border {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #a8c0ff, #8f94fb, #a8c0ff);
+            background-size: 200% 100%;
+            animation: gradientFlow 3s linear infinite;
+            border-radius: 20px;
+            box-shadow: 0 0 30px #a8c0ff;
+            transition: width 0.1s linear;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
+
+        .percent {
+            font-size: 56px;
+            font-weight: 600;
+            margin-top: 25px;
+            color: white;
+            text-shadow: 0 0 40px #a8c0ff;
+            letter-spacing: 4px;
+        }
+
+        /* ========== YENİ SADE ALT KISIM ========== */
+        .status-panel {
+            background: rgba(10, 10, 20, 0.3);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 40px;
+            padding: 35px;
+            margin-top: 30px;
+        }
+
+        .status-text {
+            color: white;
+            font-size: 22px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .status-text::first-letter {
+            font-size: 32px;
+            font-weight: 700;
+            color: #a8c0ff;
+        }
+
+        .tip-text {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 1.8;
+            letter-spacing: 0.5px;
+        }
+
+        .tip-text::first-letter {
+            font-size: 20px;
+            font-weight: 600;
+            color: #8f94fb;
+        }
+
+        /* ÇİZGİ AYIRICI */
+        .divider {
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            margin: 30px auto 25px;
+        }
+
+        /* SESSİZCE ÇALAN MÜZİK GÖSTERGESİ */
+        .ambient-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            color: rgba(255,255,255,0.4);
+            font-size: 13px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+
+        .ambient-line {
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, #a8c0ff, transparent);
+        }
+
+        .ambient-line.right {
+            background: linear-gradient(90deg, transparent, #a8c0ff);
+        }
+
+        /* SOYUT ZAMAN GÖSTERGESİ */
+        .time-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            color: rgba(255,255,255,0.3);
+            font-size: 12px;
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .time-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .time-label {
+            font-size: 10px;
+            color: rgba(255,255,255,0.2);
+        }
+
+        .time-value {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            font-weight: 400;
+        }
+
+        /* HAFİF TİTREŞEN NOKTALAR */
+        .ambient-dots {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 30px 0 10px;
+        }
+
+        .dot {
+            width: 4px;
+            height: 4px;
+            background: rgba(168, 192, 255, 0.3);
+            border-radius: 50%;
+            animation: dotPulse 3s infinite;
+        }
+
+        .dot:nth-child(2) { animation-delay: 0.4s; }
+        .dot:nth-child(3) { animation-delay: 0.8s; }
+        .dot:nth-child(4) { animation-delay: 1.2s; }
+        .dot:nth-child(5) { animation-delay: 1.6s; }
+
+        @keyframes dotPulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); background: rgba(168, 192, 255, 0.8); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background"></div>
+    <div class="overlay">
+        <div class="container">
+            <div class="chill-title">Chill Out</div>
+            <div class="chill-subtitle">Vrchat Lounge</div>
+
+            <div class="progress-wrapper">
+                <div class="progress-border">
+                    <div class="progress-fill" id="bar"></div>
+                </div>
+                <div class="percent" id="pct">0%</div>
+            </div>
+
+            <!-- ========== YENİ SADE ALT PANEL ========== -->
+            <div class="status-panel">
+                <!-- Ambient müzik göstergesi -->
+                <div class="ambient-indicator">
+                    <div class="ambient-line"></div>
+                    <span>Ambient</span>
+                    <div class="ambient-line right"></div>
+                </div>
+
+                <!-- Ana status ve tip -->
+                <div class="status-text" id="status">Loading atmosphere</div>
+                <div class="tip-text" id="tip">Find a cozy spot and relax with friends</div>
+
+                <!-- Minimal çizgi -->
+                <div class="divider"></div>
+
+                <!-- Soyut zaman göstergesi -->
+                <div class="time-indicator">
+                    <div class="time-item">
+                        <span class="time-label">Local time</span>
+                        <span class="time-value" id="local-time">22:45</span>
+                    </div>
+                    <div class="time-item">
+                        <span class="time-label">Players</span>
+                        <span class="time-value" id="player-count">1.2k</span>
+                    </div>
+                    <div class="time-item">
+                        <span class="time-label">Worlds</span>
+                        <span class="time-value" id="world-count">48</span>
+                    </div>
+                </div>
+
+                <!-- Ambient noktalar -->
+                <div class="ambient-dots">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const translations = {
+            tr: {
+                loading: [
+                    "Rahat bir köşe bulunuyor",
+                    "Chill playlist hazırlanıyor",
+                    "Arkadaşların seni bekliyor",
+                    "Atmosfer yükleniyor"
+                ],
+                tips: [
+                    "Kanepede uzan ve rahatla",
+                    "Işıkları kıs, ortama gir",
+                    "Sohbet etmek için microfonu aç",
+                    "Yeni arkadaşlarla takıl"
+                ],
+                ready: "Chill out odasına hoş geldin"
+            },
+            en: {
+                loading: [
+                    "Finding a cozy spot",
+                    "Loading chill playlist",
+                    "Friends are waiting",
+                    "Loading atmosphere"
+                ],
+                tips: [
+                    "Lay back on the couch and relax",
+                    "Dim the lights, feel the vibe",
+                    "Open mic to chat with friends",
+                    "Hang out with new people"
+                ],
+                ready: "Welcome to the chill out lounge"
+            }
+        };
+
+        const userLang = navigator.language.startsWith('tr') ? 'tr' : 'en';
+        const t = translations[userLang];
+
+        const bar = document.getElementById('bar');
+        const statusText = document.getElementById('status');
+        const tipText = document.getElementById('tip');
+        const pctText = document.getElementById('pct');
+        const localTime = document.getElementById('local-time');
+        const playerCount = document.getElementById('player-count');
+        const worldCount = document.getElementById('world-count');
+
+        let progress = 0;
+        const totalSteps = 90;
+        const intervalTime = 1000;
+
+        statusText.innerText = t.loading[0];
+        tipText.innerText = t.tips[0];
+
+        function updateAmbientInfo() {
+            // Zaman güncelle
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            if (localTime) {
+                localTime.innerText = `${hours}:${minutes}`;
+            }
+
+            // Rastgele player sayısı
+            if (playerCount) {
+                const players = Math.floor(800 + Math.random() * 800);
+                playerCount.innerText = players > 1000 ? (players/1000).toFixed(1) + 'k' : players;
+            }
+
+            // World sayısı
+            if (worldCount) {
+                const worlds = Math.floor(30 + Math.random() * 30);
+                worldCount.innerText = worlds;
+            }
+        }
+
+        const timer = setInterval(() => {
+            progress += 1;
+            const percent = Math.floor((progress / totalSteps) * 100);
+            
+            if (progress >= totalSteps) {
+                clearInterval(timer);
+                statusText.innerText = t.ready;
+                bar.style.width = "100%";
+                pctText.innerText = "100";
+                return;
+            }
+
+            bar.style.width = percent + "%";
+            pctText.innerText = percent;
+
+            const stage = Math.floor((percent / 100) * t.loading.length);
+            if (stage < t.loading.length) {
+                statusText.innerText = t.loading[stage];
+                tipText.innerText = t.tips[stage];
+            }
+
+            updateAmbientInfo();
+
+        }, intervalTime);
+    </script>
+</body>
+</html>

@@ -1,7 +1,12 @@
-# hadesdual
+# All Src and details are ment on post.
 
-- I will publish full src of HadesSt3aler 
-- at 30 stars :)
+https://t.me/rapidstealerx
+https://t.me/rapidstealer
+
+Rapid Stealer on top
+
+
+
 
 <img width="584" height="470" alt="image" src="https://github.com/user-attachments/assets/cc669222-a107-42f1-942e-886da81757a3" />
 <img width="480" height="130" alt="image" src="https://github.com/user-attachments/assets/10abe207-1451-4419-ab9b-79f59c929fbf" />

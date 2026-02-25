@@ -1,5 +1,9 @@
 # All Src and details are ment on post.
 
+
+This stealer "HadeStealer" got leaked by RapidTake 
+
+Join for better exp
 https://t.me/rapidstealerx
 https://t.me/rapidstealer
 
